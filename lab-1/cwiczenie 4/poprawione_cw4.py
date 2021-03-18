@@ -17,15 +17,18 @@ H3 = 8
 for n in range(N):
     t = n * ts
     h = 1
+    b1 = 0
+    b2 = 0
+    b3 = 0
     for h in range(H1):
         if m.sin(h) == 0: continue
-        b1 = m.sin(m.pi * t * (m.pow(h, 2) * m.sin(h))) / (7 * h)
+        b1 = b1 + m.sin(m.pi * t * (m.pow(h, 2) * m.sin(h))) / (7 * h)
     for h in range(H2):
         if m.sin(h) == 0: continue
-        b2 = m.sin(m.pi * t * (m.pow(h, 2) * m.sin(h))) / (7 * h)
+        b2 = b2 + m.sin(m.pi * t * (m.pow(h, 2) * m.sin(h))) / (7 * h)
     for h in range(H3):
         if m.sin(h) == 0: continue
-        b3 = m.sin(m.pi * t * (m.pow(h, 2) * m.sin(h))) / (7 * h)
+        b3 = b3 + m.sin(m.pi * t * (m.pow(h, 2) * m.sin(h))) / (7 * h)
     przebieg1.append(b1)
     przebieg2.append(b2)
     przebieg3.append(b3)
