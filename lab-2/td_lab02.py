@@ -14,7 +14,7 @@ def dft(x):
     return wyniki
 
 x = []
-for i in range(10):
+for i in range(128):
     x.append(i)
 
 start = time.perf_counter()
