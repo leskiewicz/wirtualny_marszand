@@ -1,0 +1,15 @@
+Czas DFT 1 wynosi 0.0330205000 sekund
+Czas FFT 1 wynosi 0.0000776000 sekund
+Różnica w czasach wynosi 0.03294289999999997 sekund
+Czas DFT 2 wynosi 0.1328256000 sekund
+Czas FFT 2 wynosi 0.0000817000 sekund
+Różnica w czasach wynosi 0.13274389999999997 sekund
+Czas DFT 3 wynosi 0.5855253000 sekund
+Czas FFT 3 wynosi 0.0001184000 sekund
+Różnica w czasach wynosi 0.5854069000000001 sekund
+Czas DFT 4 wynosi 2.4571877000 sekund
+Czas FFT 4 wynosi 0.0001957000 sekund
+Różnica w czasach wynosi 2.456992 sekund
+Czas DFT 5 wynosi 9.2320824000 sekund
+Czas FFT 5 wynosi 0.0003634000 sekund
+Różnica w czasach wynosi 9.231719 sekund
