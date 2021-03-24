@@ -14,20 +14,23 @@ def dft(x):
     return wyniki
 
 x = []
-for i in range(128):
-    x.append(i)
+for p in range(8,32):
+    x.append(2**p)
 
 start = time.perf_counter()
 dft(x)
 koniec = time.perf_counter()
-print('Czas wynosi', f"{(koniec - start):.10f}", 'sekund')
+dft_time=koniec - start
+print('Czas DFT wynosi', f"{dft_time:.10f}", 'sekund')
 # print('Czas wynosi',koniec-start,'sekund')
 
 start = time.perf_counter()
 np.fft.fft(x)
 koniec = time.perf_counter()
-print('Czas wynosi', f"{(koniec - start):.10f}", 'sekund')
+fft_time=koniec - start
+print('Czas FFT wynosi', f"{fft_time:.10f}", 'sekund')
 # print('Czas wynosi',koniec-start,'sekund')
+print('Różnica w czasach wynosi', dft_time-fft_time,'sekund')
 
-print(dft(x))
-print(np.fft.fft(x))
+# print(dft(x))
+# print(np.fft.fft(x))
