@@ -12,25 +12,27 @@ def dft(x):
             szereg = szereg + x[n] * cm.exp(1j * ((2 * cm.pi * k * n) / N))
         wyniki.append(szereg)
     return wyniki
-
-x = []
+numer=0
 for p in range(8,32):
-    x.append(2**p)
+    numer+=1
+    x = []
+    for i in range(2**p):
+        x.append(i)
 
-start = time.perf_counter()
-dft(x)
-koniec = time.perf_counter()
-dft_time=koniec - start
-print('Czas DFT wynosi', f"{dft_time:.10f}", 'sekund')
-# print('Czas wynosi',koniec-start,'sekund')
+    start = time.perf_counter()
+    dft(x)
+    koniec = time.perf_counter()
+    dft_time=koniec - start
+    print('Czas DFT',numer,'wynosi', f"{dft_time:.10f}", 'sekund')
+    # print('Czas wynosi',koniec-start,'sekund')
 
-start = time.perf_counter()
-np.fft.fft(x)
-koniec = time.perf_counter()
-fft_time=koniec - start
-print('Czas FFT wynosi', f"{fft_time:.10f}", 'sekund')
-# print('Czas wynosi',koniec-start,'sekund')
-print('Różnica w czasach wynosi', dft_time-fft_time,'sekund')
+    start = time.perf_counter()
+    np.fft.fft(x)
+    koniec = time.perf_counter()
+    fft_time=koniec - start
+    print('Czas FFT',numer,'wynosi', f"{fft_time:.10f}", 'sekund')
+    # print('Czas wynosi',koniec-start,'sekund')
+    print('Różnica w czasach wynosi', dft_time-fft_time,'sekund')
 
 # print(dft(x))
 # print(np.fft.fft(x))
