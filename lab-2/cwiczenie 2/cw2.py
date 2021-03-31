@@ -34,23 +34,6 @@ def widmo(z):
     plt.show()
     return Mprim
 
-def czasy(x):
-    start = time.perf_counter()
-    dft(x)
-    koniec = time.perf_counter()
-    dft_time=koniec - start
-    print('Czas dft wynosi', f"{dft_time:.10f}", 'sekund')
-    # print('Czas wynosi',koniec-start,'sekund')
-
-    start = time.perf_counter()
-    np.fft.fft(x)
-    koniec = time.perf_counter()
-    fft_time=koniec - start
-    print('Czas FFT wynosi', f"{fft_time:.10f}", 'sekund')
-    # print('Czas wynosi',koniec-start,'sekund')
-    print('Różnica w czasach wynosi', dft_time-fft_time,'sekund')
-
-
 tc = 1  # czas trwania
 f = 1000  # częstotliwość
 fs = 8000  # częstotliwość próbkowania
