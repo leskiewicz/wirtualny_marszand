@@ -31,3 +31,37 @@ Szerokosc dla 6dB: 14
 fmin: 23
 fmax: 47
 Szerokosc dla 12dB: 24
+
+Poniżej wyniki bez ograniczenia liczby bitów
+=====ASK=====
+fmin: 56
+fmax: 56
+Szerokosc dla 3dB: 0
+fmin: 56
+fmax: 56
+Szerokosc dla 6dB: 0
+fmin: 52
+fmax: 62
+Szerokosc dla 12dB: 10
+=====PSK=====
+fmin: 52
+fmax: 60
+Szerokosc dla 3dB: 8
+fmin: 46
+fmax: 66
+Szerokosc dla 6dB: 20
+fmin: 4
+fmax: 104
+Szerokosc dla 12dB: 100
+=====FSK=====
+fmin: 84
+fmax: 112
+Szerokosc dla 3dB: 28
+fmin: 80
+fmax: 116
+Szerokosc dla 6dB: 36
+fmin: 70
+fmax: 126
+Szerokosc dla 12dB: 56
+
+Process finished with exit code 0
