@@ -75,6 +75,7 @@ def widmo(z):
     plt.show()
     return Mprim
 
+
 def szerokosc_pasma(widmo, db):
     maksymalna = max(widmo)
     for i in range(len(widmo)):
@@ -94,6 +95,7 @@ def szerokosc_pasma(widmo, db):
     # plt.plot(widmo)
     # plt.show()
 
+
 def konwertuj(string):
     # return ''.join(format(ord(x), 'b') for x in string)
     return ''.join(format(i, 'b') for i in bytearray(string, encoding='utf8'))
@@ -108,8 +110,8 @@ A2 = 2
 W = 2
 
 tc = 1  # czas trwania
-B=len(b)
-# B=7
+B = len(b)
+# B=10
 tb = tc / B  # czas trwania pojedynczego bitu
 fs = 1000  # częstotliwość próbkowania
 ts = 1 / fs  # okres próbkowania
@@ -129,24 +131,24 @@ apl = mod_apl(sygnal)
 zesp = np.fft.fft(apl)
 Z = moduly(zesp)
 w = widmo(Z)
-szerokosc_pasma(w,3)
-szerokosc_pasma(w,6)
-szerokosc_pasma(w,12)
+szerokosc_pasma(w, 3)
+szerokosc_pasma(w, 6)
+szerokosc_pasma(w, 12)
 
 print("=====PSK=====")
 fazy = mod_fazy(sygnal)
 zesp = np.fft.fft(fazy)
 Z = moduly(zesp)
 w = widmo(Z)
-szerokosc_pasma(w,3)
-szerokosc_pasma(w,6)
-szerokosc_pasma(w,12)
+szerokosc_pasma(w, 3)
+szerokosc_pasma(w, 6)
+szerokosc_pasma(w, 12)
 
 print("=====FSK=====")
 cz = mod_cz(sygnal)
 zesp = np.fft.fft(cz)
 Z = moduly(zesp)
 w = widmo(Z)
-szerokosc_pasma(w,3)
-szerokosc_pasma(w,6)
-szerokosc_pasma(w,12)
+szerokosc_pasma(w, 3)
+szerokosc_pasma(w, 6)
+szerokosc_pasma(w, 12)
