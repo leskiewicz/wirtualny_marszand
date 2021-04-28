@@ -1,0 +1,33 @@
+Wyniki moim zdaniem wyglądają prawidłowo dla poszczególnych modulacji.
+Eksperyment przeprowadzony dla fs=1000, przy ograniczeniu bitów do 10 oraz słowa "acdc"
+
+=====ASK=====
+fmin: 20
+fmax: 20
+Szerokosc dla 3dB: 0
+fmin: 20
+fmax: 20
+Szerokosc dla 6dB: 0
+fmin: 16
+fmax: 23
+Szerokosc dla 12dB: 7
+=====PSK=====
+fmin: 17
+fmax: 23
+Szerokosc dla 3dB: 6
+fmin: 12
+fmax: 25
+Szerokosc dla 6dB: 13
+fmin: 1
+fmax: 38
+Szerokosc dla 12dB: 37
+=====FSK=====
+fmin: 30
+fmax: 40
+Szerokosc dla 3dB: 10
+fmin: 28
+fmax: 42
+Szerokosc dla 6dB: 14
+fmin: 23
+fmax: 47
+Szerokosc dla 12dB: 24
