@@ -58,7 +58,6 @@ def mod_cz(x):
 def moduly(zesp):
     modul = []
     N = len(zesp) / 2
-    # N = len(zesp)
     for i in range(int(N)):
         z = m.sqrt(zesp[i].real ** 2 + zesp[i].imag ** 2)
         modul.append(z)
@@ -76,13 +75,31 @@ def widmo(z):
     plt.show()
     return Mprim
 
+def szerokosc_pasma(widmo, db):
+    maksymalna = max(widmo)
+    for i in range(len(widmo)):
+        widmo[i] = widmo[i] - maksymalna
+    for i in range(len(widmo)):
+        if widmo[i] >= (-db):
+            fmin = i
+            break
+    for i in range(len(widmo) - 1, 0, -1):
+        if widmo[i] >= (-db):
+            fmax = i
+            break
+    print('fmin:', fmin)
+    print('fmax:', fmax)
+    szerokosc = fmax - fmin
+    print('Szerokosc dla %ddB: %d' % (db, szerokosc))
+    # plt.plot(widmo)
+    # plt.show()
 
 def konwertuj(string):
     # return ''.join(format(ord(x), 'b') for x in string)
     return ''.join(format(i, 'b') for i in bytearray(string, encoding='utf8'))
 
 
-napis = '''acdd'''
+napis = '''acdc'''
 b = konwertuj(napis)
 print(b)
 
@@ -91,8 +108,10 @@ A2 = 2
 W = 2
 
 tc = 1  # czas trwania
-tb = tc / len(b)  # czas trwania pojedynczego bitu
-fs = 800  # częstotliwość próbkowania
+B=len(b)
+# B=7
+tb = tc / B  # czas trwania pojedynczego bitu
+fs = 1000  # częstotliwość próbkowania
 ts = 1 / fs  # okres próbkowania
 # N = tc*fs  # liczba próbek na cały sygnał
 N = m.ceil(tc / ts)
@@ -102,21 +121,32 @@ fn1 = (W + 1) / tb
 fn2 = (W + 2) / tb
 
 sygnal = sygnal(b)
-plt.plot(sygnal)
-plt.show()
+# plt.plot(sygnal)
+# plt.show()
 
+print("=====ASK=====")
 apl = mod_apl(sygnal)
-
 zesp = np.fft.fft(apl)
 Z = moduly(zesp)
 w = widmo(Z)
+szerokosc_pasma(w,3)
+szerokosc_pasma(w,6)
+szerokosc_pasma(w,12)
 
+print("=====PSK=====")
 fazy = mod_fazy(sygnal)
 zesp = np.fft.fft(fazy)
 Z = moduly(zesp)
 w = widmo(Z)
+szerokosc_pasma(w,3)
+szerokosc_pasma(w,6)
+szerokosc_pasma(w,12)
 
+print("=====FSK=====")
 cz = mod_cz(sygnal)
 zesp = np.fft.fft(cz)
 Z = moduly(zesp)
 w = widmo(Z)
+szerokosc_pasma(w,3)
+szerokosc_pasma(w,6)
+szerokosc_pasma(w,12)
