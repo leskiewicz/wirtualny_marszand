@@ -3,26 +3,115 @@ import math as m
 import matplotlib.pyplot as plt
 
 
-def demodulatorASK_PSK(z):
+def demodulatorASK(z):
     dask = []
     for i in range(N):
         t = i * ts
-        dask.append(z[i]*m.sin(2 * m.pi * fn * t))
+        dask.append(z[i] * A * m.sin(2 * m.pi * fn * t))
     plt.plot(dask)
     plt.show()
+    calka1(dask)
     return dask
 
-def calka(x):
-    calka=0
-    for i in range(int(tb),0):
-        calka=calka+x[i]
-    # a,b,n=0,tb,5
-    # h = float(b-a)/n
-    # result = 0
-    # for i in range(n):
-    #     result += x[(a + h/2.0) + i*h]
-    # result *= h
-    # return result
+
+def demodulatorPSK(z):
+    dpsk = []
+    for i in range(N):
+        t = i * ts
+        dpsk.append(z[i] * A * m.sin(2 * m.pi * fn * t))
+    plt.plot(dpsk)
+    plt.show()
+    calka2(dpsk)
+    return dpsk
+
+
+def demodulatorFSK(z):
+    dfsk1 = []
+    dfsk2 = []
+    for i in range(N):
+        t = i * ts
+        dfsk1.append(z[i] * Ar * m.sin(2 * m.pi * fn1 * t))
+        dfsk2.append(z[i] * Ar * m.sin(2 * m.pi * fn2 * t))
+    # plt.plot(dfsk1)
+    # plt.plot(dfsk2)
+    # plt.show()
+    p1 = calka3(dfsk1)
+    p2 = calka3(dfsk2)
+    p = []
+    c = []
+    for i in range(N):
+        razem = p2[i] - p1[i]
+        p.append(razem)
+        if p[i] > 0:
+            c.append(1)
+        else:
+            c.append(0)
+    # plt.plot(p)
+    # plt.show()
+    plt.plot(c)
+    plt.show()
+
+def calka1(x):
+    p = []
+    c = []
+    s = 0
+    licznik = 0
+    h = 35 / 2
+    for k in range(N):
+        licznik += ts
+        s += x[k]
+        if licznik >= tb:
+            s = 0
+            licznik = 0
+        p.append(s)
+
+        if s > h:
+            c.append(1)
+        else:
+            c.append(0)
+    plt.plot(p)
+    plt.show()
+    plt.plot(c)
+    plt.show()
+
+
+def calka2(x):
+    p = []
+    c = []
+    s = 0
+    licznik = 0
+    for k in range(N):
+        licznik += ts
+        s += x[k]
+        if licznik >= tb:
+            s = 0
+            licznik = 0
+        p.append(s)
+
+        if s < 0:
+            c.append(1)
+        else:
+            c.append(0)
+    plt.plot(p)
+    plt.show()
+    plt.plot(c)
+    plt.show()
+
+
+def calka3(x):
+    p = []
+    c = []
+    s = 0
+    licznik = 0
+    for k in range(N):
+        licznik += ts
+        s += x[k]
+        if licznik >= tb:
+            s = 0
+            licznik = 0
+        p.append(s)
+    return p
+
 
 def sygnal(string):
     n = 0
@@ -71,15 +160,14 @@ def mod_cz(x):
             zf.append(m.sin(2 * m.pi * fn1 * t))
         elif x[i] == '1':
             zf.append(m.sin(2 * m.pi * fn2 * t))
-    plt.plot(zf)
-    plt.show()
+    # plt.plot(zf)
+    # plt.show()
     return zf
 
 
 def konwertuj(string):
     # return ''.join(format(ord(x), 'b') for x in string)
     return ''.join(format(i, 'b') for i in bytearray(string, encoding='utf8'))
-
 
 
 napis = '''acdc'''
@@ -93,6 +181,8 @@ ts = 1 / fs  # okres próbkowania
 # N = tc*fs  # liczba próbek na cały sygnał
 N = m.ceil(tc / ts)
 
+A = 1
+Ar = 1
 A1 = 1
 A2 = 2
 W = 2
@@ -101,8 +191,12 @@ fn1 = (W + 1) / tb
 fn2 = (W + 2) / tb
 
 sygnal = sygnal(b)
-apl = mod_apl(sygnal)
-demask = demodulatorASK_PSK(apl)
-clk = calka(demask)
+res = [int(i) for i in sygnal]
+plt.plot(res)
+plt.show()
+# apl = mod_apl(sygnal)
+# demask = demodulatorASK(apl)
 # fazy = mod_fazy(sygnal)
-# cz = mod_cz(sygnal)
+# dempsk = demodulatorPSK(fazy)
+cz = mod_cz(sygnal)
+demfsk = demodulatorFSK(cz)
