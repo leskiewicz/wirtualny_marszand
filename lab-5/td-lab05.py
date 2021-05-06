@@ -69,8 +69,8 @@ def calka1(x):
             c.append(1)
         else:
             c.append(0)
-    plt.plot(p)
-    plt.show()
+    # plt.plot(p)
+    # plt.show()
     plt.plot(c)
     plt.show()
 
@@ -92,10 +92,10 @@ def calka2(x):
             c.append(1)
         else:
             c.append(0)
-    plt.plot(p)
-    plt.show()
-    plt.plot(c)
-    plt.show()
+    # plt.plot(p)
+    # plt.show()
+    # plt.plot(c)
+    # plt.show()
 
 
 def calka3(x):
@@ -166,7 +166,6 @@ def mod_cz(x):
 
 
 def konwertuj(string):
-    # return ''.join(format(ord(x), 'b') for x in string)
     return ''.join(format(i, 'b') for i in bytearray(string, encoding='utf8'))
 
 
@@ -194,9 +193,9 @@ sygnal = sygnal(b)
 res = [int(i) for i in sygnal]
 plt.plot(res)
 plt.show()
-# apl = mod_apl(sygnal)
-# demask = demodulatorASK(apl)
+apl = mod_apl(sygnal)
+demask = demodulatorASK(apl)
 # fazy = mod_fazy(sygnal)
 # dempsk = demodulatorPSK(fazy)
-cz = mod_cz(sygnal)
-demfsk = demodulatorFSK(cz)
+# cz = mod_cz(sygnal)
+# demfsk = demodulatorFSK(cz)
