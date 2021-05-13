@@ -8,10 +8,10 @@ def demodulatorASK(z):
     for i in range(N):
         t = i * ts
         dask.append(z[i] * A * m.sin(2 * m.pi * fn * t))
-    plt.plot(dask)
-    plt.show()
-    calka1(dask)
-    return dask
+    # plt.plot(dask)
+    # plt.show()
+    c = calka1(dask)
+    return dask, c
 
 
 def demodulatorPSK(z):
@@ -21,8 +21,8 @@ def demodulatorPSK(z):
         dpsk.append(z[i] * A * m.sin(2 * m.pi * fn * t))
     plt.plot(dpsk)
     plt.show()
-    calka2(dpsk)
-    return dpsk
+    c=calka2(dpsk)
+    return dpsk,c
 
 
 def demodulatorFSK(z):
@@ -50,6 +50,38 @@ def demodulatorFSK(z):
     # plt.show()
     plt.plot(c)
     plt.show()
+    return c
+
+
+def ciag_bitow(tab,treshold):
+    jedynki = 0
+    zera = 0
+    wynik = []
+    TMP = 0
+    for i in range(len(tab)):
+        TMP = TMP + ts
+
+        if TMP >= tb:
+
+            if (jedynki / (jedynki + zera)) < treshold / 100:
+                wynik.append(0)
+            else:
+                wynik.append(1)
+
+            TMP = 0
+            jedynki = 0
+            zera = 0
+        if tab[i] == 1:
+            jedynki += 1
+        else:
+            zera += 1
+
+    if (jedynki / (jedynki + zera)) > treshold / 100:
+        wynik.append(1)
+    else:
+        wynik.append(0)
+    return wynik
+
 
 def calka1(x):
     p = []
@@ -71,8 +103,9 @@ def calka1(x):
             c.append(0)
     # plt.plot(p)
     # plt.show()
-    plt.plot(c)
-    plt.show()
+    # plt.plot(c)
+    # plt.show()
+    return c
 
 
 def calka2(x):
@@ -96,6 +129,7 @@ def calka2(x):
     # plt.show()
     # plt.plot(c)
     # plt.show()
+    return c
 
 
 def calka3(x):
@@ -134,8 +168,8 @@ def mod_apl(x):
             za.append(A1 * (m.sin(2 * m.pi * fn * t)))
         elif x[i] == '1':
             za.append(A2 * (m.sin(2 * m.pi * fn * t)))
-    plt.plot(za)
-    plt.show()
+    # plt.plot(za)
+    # plt.show()
     return za
 
 
@@ -168,17 +202,26 @@ def mod_cz(x):
 def konwertuj(string):
     return ''.join(format(i, 'b') for i in bytearray(string, encoding='utf8'))
 
+def test(c,res):
+    zamien = ciag_bitow(c, B)
+    string = "".join(str(elem) for elem in zamien)
+    print(string)
+    print(b)
 
-napis = '''acdc'''
+    plt.plot(res, linewidth=3)
+    plt.plot(c)
+    plt.show()
+
+napis = '''czupakabra'''
 b = konwertuj(napis)
 
 tc = 1  # czas trwania
 B = len(b)
 tb = tc / B  # czas trwania pojedynczego bitu
-fs = 900  # częstotliwość próbkowania
+fs = 1600  # częstotliwość próbkowania
 ts = 1 / fs  # okres próbkowania
-# N = tc*fs  # liczba próbek na cały sygnał
-N = m.ceil(tc / ts)
+N = tc * fs  # liczba próbek na cały sygnał
+# N = m.ceil(tc / ts)
 
 A = 1
 Ar = 1
@@ -191,11 +234,20 @@ fn2 = (W + 2) / tb
 
 sygnal = sygnal(b)
 res = [int(i) for i in sygnal]
-plt.plot(res)
-plt.show()
 apl = mod_apl(sygnal)
-demask = demodulatorASK(apl)
-# fazy = mod_fazy(sygnal)
-# dempsk = demodulatorPSK(fazy)
-# cz = mod_cz(sygnal)
-# demfsk = demodulatorFSK(cz)
+demask, c = demodulatorASK(apl)
+test(c,res)
+# print(res)
+# print(c)
+
+# plt.plot(c)
+# plt.show()
+# plt.plot(res)
+# plt.show()
+fazy = mod_fazy(sygnal)
+dempsk,c = demodulatorPSK(fazy)
+test(c,res)
+
+cz = mod_cz(sygnal)
+c = demodulatorFSK(cz)
+test(c,res)
