@@ -31,6 +31,7 @@ def dekoder15_11(c, P):
     H = H.astype(int)
     s = np.dot(c, H.T) % 2
     S = s[0] + s[1] * 2 + s[2] * (2 ** 2) + s[3] * (2 ** 3)
+    print('S =', S)
 
     if S:
         c[S - 1] = int(not (c[S - 1]))
@@ -49,4 +50,8 @@ kod, P = koder15_11(napis)
 print(kod, '\n')
 
 dekod,blad = dekoder15_11(kod, P)
-print(dekod,'\nBłąd:', blad)
+print(dekod,'\nBłąd:', blad, '\n')
+
+kod[4] = int(not (kod[4]))
+dekod,blad = dekoder15_11(kod, P)
+print(dekod,'\nBłąd:', blad, '\n')
