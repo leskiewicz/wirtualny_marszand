@@ -177,22 +177,22 @@ B = len(kod)
 tb = tc / B  # czas trwania pojedynczego bitu
 fn = W * tb ** (-1)  # częstotliwość nośna
 
-# kod = sygnal(kod)
-# apl = mod_apl(kod)
-# plt.plot(apl)
+kod = sygnal(kod)
+apl = mod_apl(kod)
+plt.plot(apl)
 
-napis="testowy"
-apl=mod_apl(test)
-# szum=generator_szumu(fs)
-# apl=dodajSzumAlfa(apl,szum)
-# apl=dodajSzumBeta(apl,szum)
-# plt.plot(apl)
-# plt.show()
+# napis="testowy"
+# apl=mod_apl(test)
+szum=generator_szumu(fs)
+apl=dodajSzumAlfa(apl,szum)
+apl=dodajSzumBeta(apl,szum)
+plt.plot(apl)
+plt.show()
 
-# demask, c = demodulatorASK(apl)
-# ciag = ciag_bitow(c, ((n+k)*(B+1))) # 87-89?? dlaczego
-# print(ciag)
-# dekod = dekoder7_4(ciag)
-# print(dekod)
+demask, c = demodulatorASK(apl)
+ciag = ciag_bitow(c, ((n+k)*(B+1))) # 87-89?? dlaczego
+print(ciag)
+dekod = dekoder7_4(ciag)
+print(dekod)
 
 
