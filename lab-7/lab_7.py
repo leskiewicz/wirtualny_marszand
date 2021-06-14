@@ -148,10 +148,19 @@ fn = W * tb ** (-1)  # częstotliwość nośna
 b = [int(i) for i in b]
 bloki = podzialNaBloki(b,4)
 
+# for i in bloki:
+#     kod=koder7_4(i)
+#     print(kod)
+#     sygnal=sygnal(kod)
+#     # apl=mod_apl(sygnal)
+#     # demask, c, h = demodulatorASK(apl)
+
+
 kod = []
 for X in bloki:
     kod+=koder7_4(X)
 b=kod
+
 
 sygnal = sygnal(b)
 apl = mod_apl(sygnal)
@@ -162,12 +171,7 @@ bloki2=podzialNaBloki(c,7)
 
 dekod=[]
 for X in bloki2:
-    dekod+=dekoder7_4(X)
-
+    tmp=dekoder7_4(X)
+    tmp=tmp.tolist()
+    dekod+=tmp
 print(dekod)
-# print(dekoder7_4(X))
-
-
-
-# print(bloki2)
-# print(c)
