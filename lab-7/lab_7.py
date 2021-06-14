@@ -113,12 +113,14 @@ def dekoder7_4(b):
     x4 = (b[3] + x4p) % 2
     S = x1 * 1 + x2 * 2 + x4 * 2 ** 2
     # print('S =', S)
-    wyjscie = []
     if S:
         b[S - 1] = int(not (b[S - 1]))
-        return b #, 'tak'
-    else:
-        return b #, 'nie'
+        # return b #, 'tak'
+    # else:
+        # return b #, 'nie'
+    zwroc=[b[2],b[4],b[5],b[6]]
+    # print('zwroc',zwroc)
+    return zwroc
 
 
 def podzialNaBloki(b,fragment):
@@ -155,7 +157,7 @@ for X in bloki:
     kod+=koder7_4(X)
 b=kod
 print('Długość po kodowaniu',len(b))
-print(b)
+# print(b)
 
 B = len(b)
 tb = tc / B  # czas trwania pojedynczego bitu
@@ -178,6 +180,7 @@ bloki2=podzialNaBloki(c,7)
 dekod=[]
 for X in bloki2:
     tmp=dekoder7_4(X)
-    tmp=tmp.tolist()
+    # tmp=tmp.tolist()
     dekod+=tmp
 print(dekod)
+print('Długość po odkodowaniu',len(dekod))
