@@ -130,20 +130,15 @@ def podzialNaBloki(b,fragment):
 napis = '''lesialke'''
 b = konwertuj(napis)
 print([int(i) for i in b])
-
+print('Długość przed kodowaniem',len([int(i) for i in b]))
 tc = 1  # czas trwania
-B = len(b)
-tb = tc / B  # czas trwania pojedynczego bitu
-fs = 1000  # częstotliwość próbkowania
-ts = 1 / fs  # okres próbkowania
-N = tc * fs  # liczba próbek na cały sygnał
+
 
 A = 1
 A1 = 1
 A2 = 2
 W = 2
-tb = tc / B  # czas trwania pojedynczego bitu
-fn = W * tb ** (-1)  # częstotliwość nośna
+
 
 b = [int(i) for i in b]
 bloki = podzialNaBloki(b,4)
@@ -155,17 +150,28 @@ bloki = podzialNaBloki(b,4)
 #     # apl=mod_apl(sygnal)
 #     # demask, c, h = demodulatorASK(apl)
 
-
 kod = []
 for X in bloki:
     kod+=koder7_4(X)
 b=kod
+print('Długość po kodowaniu',len(b))
+print(b)
+
+B = len(b)
+tb = tc / B  # czas trwania pojedynczego bitu
+fs = 1600  # częstotliwość próbkowania
+ts = 1 / fs  # okres próbkowania
+N = tc * fs  # liczba próbek na cały sygnał
+tb = tc / B  # czas trwania pojedynczego bitu
+fn = W * tb ** (-1)  # częstotliwość nośna
 
 
 sygnal = sygnal(b)
 apl = mod_apl(sygnal)
+
 demask, c, h = demodulatorASK(apl)
 c = ciag_bitow(c,1)
+
 bloki2=podzialNaBloki(c,7)
 
 
