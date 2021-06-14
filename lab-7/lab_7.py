@@ -115,11 +115,7 @@ def dekoder7_4(b):
     # print('S =', S)
     if S:
         b[S - 1] = int(not (b[S - 1]))
-        # return b #, 'tak'
-    # else:
-        # return b #, 'nie'
     zwroc=[b[2],b[4],b[5],b[6]]
-    # print('zwroc',zwroc)
     return zwroc
 
 
@@ -173,7 +169,7 @@ apl = mod_apl(sygnal)
 
 demask, c, h = demodulatorASK(apl)
 c = ciag_bitow(c,1)
-
+print('Długość po ciag_bitow',len(c))
 bloki2=podzialNaBloki(c,7)
 
 
