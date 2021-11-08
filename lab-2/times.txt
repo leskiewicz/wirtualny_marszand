@@ -1,0 +1,37 @@
+Czas DFT 1 wynosi 0.0330205000 sekund
+Czas FFT 1 wynosi 0.0000776000 sekund
+Różnica w czasach wynosi 0.03294289999999997 sekund
+Czas DFT 2 wynosi 0.1328256000 sekund
+Czas FFT 2 wynosi 0.0000817000 sekund
+Różnica w czasach wynosi 0.13274389999999997 sekund
+Czas DFT 3 wynosi 0.5855253000 sekund
+Czas FFT 3 wynosi 0.0001184000 sekund
+Różnica w czasach wynosi 0.5854069000000001 sekund
+Czas DFT 4 wynosi 2.4571877000 sekund
+Czas FFT 4 wynosi 0.0001957000 sekund
+Różnica w czasach wynosi 2.456992 sekund
+Czas DFT 5 wynosi 9.2320824000 sekund
+Czas FFT 5 wynosi 0.0003634000 sekund
+Różnica w czasach wynosi 9.231719 sekund
+Czas DFT 6 wynosi 36.7343695000 sekund
+Czas FFT 6 wynosi 0.0006725000 sekund
+Różnica w czasach wynosi 36.733697 sekund
+Czas DFT 7 wynosi 151.0526023000 sekund
+Czas FFT 7 wynosi 0.0013755000 sekund
+Różnica w czasach wynosi 151.0512268 sekund
+Czas DFT 8 wynosi 583.0313213000 sekund
+Czas FFT 8 wynosi 0.0029490000 sekund
+Różnica w czasach wynosi 583.0283723 sekund
+Czas FFT 9 wynosi 0.0057505000 sekund
+Czas FFT 10 wynosi 0.0116200000 sekund
+Czas FFT 11 wynosi 0.0238383000 sekund
+Czas FFT 12 wynosi 0.0497225000 sekund
+Czas FFT 13 wynosi 0.0983277000 sekund
+Czas FFT 14 wynosi 0.2228136000 sekund
+Czas FFT 15 wynosi 0.4333764000 sekund
+Czas FFT 16 wynosi 0.8940720000 sekund
+Czas FFT 17 wynosi 1.7761816000 sekund
+Czas FFT 18 wynosi 5.6085077000 sekund
+Czas FFT 19 wynosi 37.6672204000 sekund
+
+Widać, jak dla coraz większej długości wektorów, FFT ma coraz większą przewagę w porównaniu do DFT. Algorytm FFT praktycznie nie zostaje obciążony poprzez coraz to większą długość wektorów,a DFT znacznie zwiększa czas swojego wykonania. Na tyle znacznie, że nie wiem, czy o to chodziło przy wykonywaniu pętli.

@@ -1,0 +1,12 @@
+		DFT(s)		FFT(s)			Róznica(s)	Suma									
+1		37,3299054	0,0008955000	37,3290099	37,3308009								
+2		36,6265994	0,0006052000	36,6259942	36,6272046								
+3		37,3460559	0,0007044		37,3453515	37,3467603								
+4		37,6344879	0,0006079		37,63388	37,6350958								
+5		37,0465153	0,0006299		37,0458854	37,0471452								
+6		296,6121141	0,0022			296,6099141	296,6143141								
+7		288,190016	0,0019933		288,1880227	288,1920093								
+8		272,5554008	0,0019219		272,5534789	272,5573227								
+Srednia	130,4176369	0,001007175		130,4164421									
+
+Po czasach widac, ze DFT jest duzo bardziej czasochlonne niz wbudowana metoda FFT, dlatego do bardziej zaawansowanych obliczen sugerowalbym uzywanie funkcji z biblioteki numpy.

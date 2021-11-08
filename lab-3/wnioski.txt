@@ -1,0 +1,101 @@
+Częstotliwość nośna służy do "przemieszczenia" naszego wykresu na rysunku
+Natomiast częstotliwość sygnału informacyjnego pozwala rozszerzyć ten wykres,
+co również widać po wynikach, że szerokośc danego pasma jest większa.
+Wedug mnie lepiej korzystać z mniejszej częstotliwości typu 800Hz.
+Nie jestem przekonany, czy czasami dobrze wylicza szerokość sygnału jako 0, ale nie mam na to innego pomysłu aktualnie.
+Najszersze pasmo można zaobserowawać przy modulacji fazy.
+
+WYNIKI POMIARÓW
+===========Przykład 1===============
+---------Modulacja amplitudy--------
+fmin: 200
+fmax: 200
+Szerokosc dla 3dB: 0
+fmin: 195
+fmax: 205
+Szerokosc dla 6dB: 10
+fmin: 195
+fmax: 205
+Szerokosc dla 12dB: 10
+---------Modulacja fazy--------
+fmin: 200
+fmax: 200
+Szerokosc dla 3dB: 0
+fmin: 195
+fmax: 205
+Szerokosc dla 6dB: 10
+fmin: 195
+fmax: 205
+Szerokosc dla 12dB: 10
+---------Modulacja częstotliwości--------
+fmin: 200
+fmax: 200
+Szerokosc dla 3dB: 0
+fmin: 200
+fmax: 200
+Szerokosc dla 6dB: 0
+fmin: 200
+fmax: 200
+Szerokosc dla 12dB: 0
+===========Przykład 2===============
+---------Modulacja amplitudy--------
+fmin: 195
+fmax: 205
+Szerokosc dla 3dB: 10
+fmin: 195
+fmax: 205
+Szerokosc dla 6dB: 10
+fmin: 195
+fmax: 205
+Szerokosc dla 12dB: 10
+---------Modulacja fazy--------
+fmin: 185
+fmax: 215
+Szerokosc dla 3dB: 30
+fmin: 180
+fmax: 220
+Szerokosc dla 6dB: 40
+fmin: 175
+fmax: 225
+Szerokosc dla 12dB: 50
+---------Modulacja częstotliwości--------
+fmin: 200
+fmax: 200
+Szerokosc dla 3dB: 0
+fmin: 195
+fmax: 205
+Szerokosc dla 6dB: 10
+fmin: 195
+fmax: 205
+Szerokosc dla 12dB: 10
+===========Przykład 3===============
+---------Modulacja amplitudy--------
+fmin: 195
+fmax: 205
+Szerokosc dla 3dB: 10
+fmin: 195
+fmax: 205
+Szerokosc dla 6dB: 10
+fmin: 195
+fmax: 205
+Szerokosc dla 12dB: 10
+---------Modulacja fazy--------
+fmin: 155
+fmax: 245
+Szerokosc dla 3dB: 90
+fmin: 145
+fmax: 255
+Szerokosc dla 6dB: 110
+fmin: 140
+fmax: 260
+Szerokosc dla 12dB: 120
+---------Modulacja częstotliwości--------
+fmin: 190
+fmax: 210
+Szerokosc dla 3dB: 20
+fmin: 185
+fmax: 215
+Szerokosc dla 6dB: 30
+fmin: 180
+fmax: 220
+Szerokosc dla 12dB: 40

@@ -1,0 +1,198 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import math as m
+import funkcje as f
+
+
+def demodulatorASK(z):
+    dask = []
+    for i in range(N):
+        t = i * ts
+        dask.append(z[i] * A * m.sin(2 * m.pi * fn * t))
+    # plt.plot(dask)
+    # plt.show()
+    c = calka1(dask)
+    return dask, c
+
+
+def calka1(x):
+    p = []
+    c = []
+    s = 0
+    licznik = 0
+    h = 35 / 2
+    for k in range(N):
+        licznik += ts
+        s += x[k]
+        if licznik >= tb:
+            s = 0
+            licznik = 0
+        p.append(s)
+
+        if s > h:
+            c.append(1)
+        else:
+            c.append(0)
+    # plt.plot(p)
+    # plt.show()
+    # plt.plot(c)
+    # plt.show()
+    return c
+
+
+def sygnal(string):
+    n = 0
+    sygnal = []
+    TMP_TB = 0
+    for k in range(N):
+        TMP_TB = TMP_TB + ts
+        if TMP_TB >= tb:
+            n += 1
+            TMP_TB = 0
+        sygnal.append(string[n])
+    return sygnal
+
+
+def mod_apl(x):
+    za = []
+    for i in range(N):
+        t = i * ts
+        if x[i] == '0':
+            za.append(A1 * (m.sin(2 * m.pi * fn * t)))
+        elif x[i] == '1':
+            za.append(A2 * (m.sin(2 * m.pi * fn * t)))
+    # plt.plot(za)
+    # plt.show()
+    return za
+
+
+def koder7_4(b):
+    w = [None] * n
+    w[0] = (b[0] + b[1] + b[3]) % 2
+    w[1] = (b[0] + b[2] + b[3]) % 2
+    w[2] = b[0]
+    w[3] = (b[1] + b[2] + b[3]) % 2
+    w[4] = b[1]
+    w[5] = b[2]
+    w[6] = b[3]
+    return w
+
+
+def dekoder7_4(b):
+    x1p = (b[2] + b[4] + b[6]) % 2
+    x2p = (b[2] + b[5] + b[6]) % 2
+    x4p = (b[4] + b[5] + b[6]) % 2
+    x1 = (b[0] + x1p) % 2
+    x2 = (b[1] + x2p) % 2
+    x4 = (b[3] + x4p) % 2
+    S = x1 * 1 + x2 * 2 + x4 * 2 ** 2
+    print('S =', S)
+
+    if S:
+        b[S - 1] = int(not (b[S - 1]))
+        return b, 'tak'
+    else:
+        return b, 'nie'
+
+
+def konwertuj(string):
+    return ''.join(format(i, 'b') for i in bytearray(string, encoding='utf8'))
+
+
+def ciag_bitow(tab, treshold):
+    jedynki = 0
+    zera = 0
+    wynik = []
+    TMP = 0
+    for i in range(len(tab)):
+        TMP = TMP + ts
+
+        if TMP >= tb:
+
+            if (jedynki / (jedynki + zera)) < treshold / 100:
+                wynik.append(0)
+            else:
+                wynik.append(1)
+
+            TMP = 0
+            jedynki = 0
+            zera = 0
+        if tab[i] == 1:
+            jedynki += 1
+        else:
+            zera += 1
+
+    if (jedynki / (jedynki + zera)) > treshold / 100:
+        wynik.append(1)
+    else:
+        wynik.append(0)
+    return wynik
+
+
+def generator_szumu(n):
+    mean = 0
+    std = 1
+    num_samples = n
+    samples = np.random.normal(mean, std, size=num_samples)
+    return samples
+
+
+def dodajSzumAlfa(x,g):
+    y = []
+    alfa = 0.5
+    for i in range(N):
+        y.append(x[i]+alfa*g[i])
+    return y
+
+def dodajSzumBeta(x,g):
+    y = []
+    beta = 10
+    for i in range(N):
+        t = i * ts
+        # y.append(x[i]*m.exp(-beta*t))
+        y.append(x[i]*g[i])
+    return y
+
+tc = 1  # czas trwania
+fs = 1600  # częstotliwość próbkowania
+ts = 1 / fs  # okres próbkowania
+N = tc * fs  # liczba próbek na cały sygnał
+
+A = 1
+A1 = 1
+A2 = 2
+W = 2
+
+n = 7
+k = 4
+
+napis = ("1101")
+napis = [int(i) for i in napis]
+
+kod = koder7_4(napis)
+print(kod, '\n')
+
+kod = [str(i) for i in kod]
+B = len(kod)
+tb = tc / B  # czas trwania pojedynczego bitu
+fn = W * tb ** (-1)  # częstotliwość nośna
+
+kod = sygnal(kod)
+apl = mod_apl(kod)
+plt.plot(apl)
+
+# napis="testowy"
+# apl=mod_apl(test)
+szum=generator_szumu(fs)
+apl=dodajSzumAlfa(apl,szum)
+apl=dodajSzumBeta(apl,szum)
+plt.plot(apl)
+plt.show()
+
+demask, c = demodulatorASK(apl)
+ciag = ciag_bitow(c, ((n+k)*(B+1))) # 87-89?? dlaczego
+print(ciag)
+dekod = dekoder7_4(ciag)
+print(dekod)
+
+
