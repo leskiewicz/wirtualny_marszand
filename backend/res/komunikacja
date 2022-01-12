@@ -1,0 +1,128 @@
+ROLES:
+1 - ADMIN
+2 - ARTYSTA
+3 - HOTEL
+4 - KLIENT
+
+{
+    "email": "szymon@gmail.com",
+    "password": "dupadupa",
+	"phone": "332111254",
+	"birthDate": "1990-01-01",
+    "firstName": "Szymon",
+    "lastName": "Keruke",
+    "address": "Ul. Gliniana 22",
+    "city": "Address"
+}, //KLIENT
+
+{
+    "email": "adam@gmail.com",
+    "password": "dupadupa",
+	"phone": "332111254",
+	"birthDate": "1990-01-01",
+    "firstName": "Szymon",
+    "lastName": "Keruke",
+    "address": "Ul. Gliniana 22",
+    "city": "Address"
+} //ARTYSTA
+
+{
+    "email": "wiktor@gmail.com",
+    "password": "dupadupa",
+	"phone": "332111254",
+	"birthDate": "1990-01-01",
+    "firstName": "Szymon",
+    "lastName": "Keruke",
+    "address": "Ul. Gliniana 22",
+    "city": "Address"
+} //HOTEL
+
+{
+    "email": "wektor@gmail.com",
+    "password": "dupadupa",
+	"phone": "332111254",
+	"birthDate": "1990-01-01",
+    "firstName": "Szymon",
+    "lastName": "Keruke",
+    "address": "Ul. Gliniana 22",
+    "city": "Address"
+} //ARTYSTA
+
+{
+	name: "Pierwszy obraz wektora",
+	description: "Pierwszy obraz wektora",
+	year: 2021,
+	type: "Olej na plotnie",
+	price: 199.99,
+	width: 40,
+	height: 60
+}
+
+
+name: req.body.name, 
+description: req.body.description, 
+year: req.body.year, 
+type: req.body.type, 
+price: req.body.price, 
+width: req.body.width, 
+height: req.body.height,
+
+
+//Klient
+//login
+POST http://localhost:3000/auth/login
+{
+    "email": "szymon@gmail.com",
+    "password": "dupadupa",
+}
+
+GET http://localhost:3000/user/me
+
+POST http://localhost:3000/user/me/updateInfo
+{
+	"email": "szymon@gmail.com",
+    "firstName": "Szymon",
+    "lastName": "Kurek",
+    "city": "Address",
+    "address": "Ul. Gliniana 62",
+    "phone": "332111254",
+    "birthDate": "1990-01-01T00:00:00.000Z",
+    "organisation": "Beldam",
+    "description": "Clandestine",
+}
+
+POST http://localhost:3000/user/me/updatePassword
+
+{
+	"password": "dupadupa",
+	"newpassword": "nowehaslo",
+	"renewpassword": "nowehaslo"
+}
+
+GET http://localhost:3000/klient/galleries - galerie hoteli
+
+//hotel
+GET http://localhost:3000/hotel/galleries
+
+GET http://localhost:3000/hotel/galleries/me
+
+POST http://localhost:3000/hotel/galleries/me
+
+{
+    "name": "Druga galeria hotelu"
+}
+
+POST http://localhost:3000/hotel/galleries/me/:id/pictures
+
+
+form-data
+
+name:Kolejny obraz
+description:Opis kolejnego obrazu
+year:2021
+type:Olej na plotnie
+price:199.99
+width:40
+height:60
+
+image recznie
