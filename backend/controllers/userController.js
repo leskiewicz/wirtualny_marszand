@@ -24,7 +24,7 @@ module.exports.my_informations_get = async (req, res, next) => {
 			where: { id: req.user.id }
 		})
 
-		res.send(user);
+		res.status(200).send(user);
 	} catch(err) {
 		res.send(sequelizeErrorHandler(err));
 	}
@@ -43,7 +43,7 @@ module.exports.update_password_post = async (req, res, next) => {
 				user.password = req.body.newpassword;
 				await user.save({ fields: ['password'] });
 
-				res.send({msg: "Sukces, hasło zmienione"});
+				res.status(200).send({msg: "Sukces, hasło zmienione"});
 			} else {
 				res.send({msg: "Hasła się nie zgadzają"});
 			}
@@ -79,7 +79,7 @@ module.exports.update_user_post = async (req, res, next) => {
 		await user.save({ fields: ['email'] });
 		await userInfo.save();
 		
-		res.send({ msg: "Udalo sie uaktualnic dane" });
+		res.status(200).send({ msg: "Udalo sie uaktualnic dane" });
 
 	} catch(err) {
 		res.send(sequelizeErrorHandler(err));

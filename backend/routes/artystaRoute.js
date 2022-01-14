@@ -33,4 +33,7 @@ router.post('/galleries/me/:id/pictures', upload.single('image'), artystaControl
 router.get('/galleries/me/:id/pictures', artystaController.all_images_from_gallery_by_id_get)
 router.get('/galleries/me/:id/pictures/:pid', artystaController.single_picture_get)
 
+router.get('/transactions/me', artystaController.show_history_get)
+router.get('/transactions/me/:id', artystaController.show_history_one_get)
+
 module.exports = router

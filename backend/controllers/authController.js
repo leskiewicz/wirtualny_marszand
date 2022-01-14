@@ -9,6 +9,12 @@ module.exports.register_post = async(req, res) => {
 
 	try {
 
+		/*
+		if(req.body.password != req.body.repassword) {
+			res.send({message: "Hasla sie nie zgadzają"});
+		}
+		*/
+		
 		const result = await sequelize.transaction(async (t) => {
 			
 			const user = await User.create({ email: req.body.email, password: req.body.password }, { transaction: t })
@@ -34,7 +40,7 @@ module.exports.register_post = async(req, res) => {
 		
 		  });
 		
-		res.send({"message": "Utworzono użytkownika."})
+		res.status(200).send({message: "Utworzono użytkownika."})
 	} catch(err) {
 		res.send(sequelizeErrorHandler(err))
 	}
@@ -57,7 +63,7 @@ module.exports.login_post = async (req, res, next) => {
 		if(userValidate) {
 			let payload = { id: user.id };
 			let token = jwt.sign(payload, process.env.SECRET);
-			res.send({ msg: 'ok', token: token });
+			res.status(200).send({ msg: 'ok', token: token });
 		} else {
 			res.send({error: "Nieprawidlowe haslo"})
 		}

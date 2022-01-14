@@ -38,4 +38,8 @@ router.get('/galleries/:id', hotelController.one_artist_gallery_get)
 router.get('/galleries/:id/pictures', hotelController.all_artist_gallery_pictures_get)
 router.get('/galleries/:id/pictures/:pid', hotelController.single_artist_picture_get)
 
+router.post('/galleries/:id/pictures/:pid/buy', hotelController.buy_artist_picture_post)
+router.get('/transactions/me', hotelController.show_history_get)
+router.get('/transactions/me/:id', hotelController.show_history_one_get)
+
 module.exports = router

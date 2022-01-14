@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ User, Picture }) {
       // define association here
-      this.belongsTo(User, { foreignKey: 'userId'} );
+      this.belongsTo(User, { foreignKey: 'userBuyId'} );
       this.belongsTo(Picture, { foreignKey: 'pictureId'});
     }
   };
@@ -21,14 +21,18 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: true,
 			autoIncrement: true
 		},
-    userId: {
+    userBuyId: {
+      type: DataTypes.INTEGER,
+			allowNull: false,
+    },
+    userSellId: {
       type: DataTypes.INTEGER,
 			allowNull: false,
     },
     pictureId: {
       type: DataTypes.INTEGER,
 			allowNull: false,
-    },
+    }
   }, {
     sequelize,
     modelName: 'Order',

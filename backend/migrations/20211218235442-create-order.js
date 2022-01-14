@@ -8,7 +8,11 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      userId: {
+      userBuyId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      userSellId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
