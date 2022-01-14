@@ -7,6 +7,7 @@ import 'product_page.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+
 class ScanQrPage extends StatefulWidget {
   static String tag = 'scan_qr-page';
   @override
@@ -71,7 +72,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Scan this Shit'),
+          title: const Text('Scaner Name'),
         ),
         backgroundColor: Colors.white,
         body: Center(
@@ -83,6 +84,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
 
               Container(
+
                 child: Text(
                   userId != null ? 'UserID is $userId' : 'UserID Loading',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
