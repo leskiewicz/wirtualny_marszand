@@ -1,27 +1,32 @@
 {
   "development": {
     "username": "root",
-    "password": null,
+    "password": "root",
     "database": "marszand",
     "host": "127.0.0.1",
+    "port": "8889",
     "dialect": "mariadb",
     "dialectOptions": "{'charset': 'utf8', 'collate': 'utf8_general_ci'}",
     "timestamps": true
   },
   "test": {
     "username": "root",
-    "password": null,
+    "password": "root",
     "database": "marszand",
     "host": "127.0.0.1",
+    "port": "8889",
+
     "dialect": "mariadb",
     "dialectOptions": "{'charset': 'utf8', 'collate': 'utf8_general_ci'}",
     "timestamps": true
   },
   "production": {
     "username": "root",
-    "password": null,
+    "password": "root",
     "database": "marszand",
     "host": "127.0.0.1",
+    "port": "8889",
+
     "dialect": "mariadb",
     "dialectOptions": "{'charset': 'utf8', 'collate': 'utf8_general_ci'}",
     "timestamps": true
