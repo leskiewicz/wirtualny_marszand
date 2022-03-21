@@ -1,0 +1,18 @@
+Backend:
+npm install
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+node server.js
+
+Frontend
+
+cordova plugin add cordova-plugin-whitelist
+cordova anrdoid version -> 6.2.0
+framework7/package.json -> run android ... --device
+npm run ... android device... -> error
+cd cordova
+cordova platform add android
+npm run ... android device
+
+npm install
+npx http-server ./www/ -o -c 1 -p 8080

@@ -1,0 +1,34 @@
+{
+  "cwd": "D:\\FILES\\Kurek\\front2",
+  "type": [
+    "cordova"
+  ],
+  "name": "Marszand",
+  "framework": "core",
+  "template": "single-view",
+  "bundler": false,
+  "cssPreProcessor": false,
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false,
+  "pkg": "io.framework7.marszand",
+  "cordova": {
+    "folder": "cordova",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "plugins": [
+      "cordova-plugin-statusbar",
+      "cordova-plugin-keyboard",
+      "cordova-plugin-splashscreen",
+	  "cordova-plugin-whitelist",
+	  "cordova-plugin-barcodescanner"
+    ]
+  }
+}

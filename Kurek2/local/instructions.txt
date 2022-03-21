@@ -1,0 +1,9 @@
+Backend:
+npm install
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+node server.js
+
+Frontend
+npm install
+npx http-server ./www/ -o -c 1 -p 8080
