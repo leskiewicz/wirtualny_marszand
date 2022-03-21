@@ -1,0 +1,22 @@
+Edytujecie plik .env podając login i hasło do lokalnej bazy danych
+następnie kopiujecie .env do folderu backend
+
+logujecie się do lokalnej bazy danych i zakładacie bazę danych bez żadnych tabel:
+CREATE DATABASE marszand;
+jeśli chcecie polskie znaki to dorzucacie jeszcze w bazie danych:
+ALTER DATABASE marszand CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+W folderze backend->config->config.json
+edytujecie config.json
+zmieniacie nazwę użytkownika i hasło do waszej bazy np. username: "root", pass: "root", ewentualnie port do bazy jeśli macie inny jak Rafał
+
+kolejno w folderach:
+Backend:
+npm install
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+node server.js
+
+Frontend
+npm install
+npx http-server ./www/ -o -c 1 -p 8080
