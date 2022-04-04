@@ -34,7 +34,7 @@ var app = new Framework7({
   },
 });
 
-var hostPath = 'http://localhost:3000';
+var hostPath = 'http://192.168.203.110:3000';
 
 var rolePaths = [hostPath+'/klient', hostPath+'/hotel', hostPath+'/artysta'];
 var registerUser = {}
@@ -56,7 +56,7 @@ function returnJsonToStringMsg(jsonObj) {
 }
 
 $(document).on('page:init', '.page[data-name="register"]', function (e) {
-  
+
   $('#submitRegister').on('click', async function () {
       var email = $('#registerForm [name="email"]').val();
       var password = $('#registerForm [name="password"]').val();
@@ -72,7 +72,7 @@ $(document).on('page:init', '.page[data-name="register"]', function (e) {
 
 //ARTIST
 
-let artistArchivePictures = 
+let artistArchivePictures =
 '<li id="artistArchivePictures">' +
   '<a href="/artist/archive/pictures" class="item-content item-link">' +
     '<div class="item-inner">' +
@@ -81,7 +81,7 @@ let artistArchivePictures =
   '</a>' +
 '</li>'
 
-let artistPictures = 
+let artistPictures =
 '<li id="artistPictures">' +
   '<a href="/artist/pictures" class="item-content item-link">' +
     '<div class="item-inner">' +
@@ -91,7 +91,7 @@ let artistPictures =
 '</li>'
 
 
-let artistSales = 
+let artistSales =
 '<li id="artistSales">' +
   '<a href="/artist/sales/pictures" class="item-content item-link">' +
     '<div class="item-inner">' +
@@ -105,7 +105,7 @@ let artistCombined = artistSales+artistPictures+artistArchivePictures;
 
 
 //CLIENT
-let clientPictures = 
+let clientPictures =
 '<li id="clientPictures">' +
   '<a href="/client/pictures" class="item-content item-link">' +
     '<div class="item-inner">' +
@@ -115,7 +115,7 @@ let clientPictures =
 '</li>'
 
 
-let clientShop = 
+let clientShop =
 '<li id="clienttSales">' +
   '<a href="/client/shop/pictures" class="item-content item-link">' +
     '<div class="item-inner">' +
@@ -124,12 +124,22 @@ let clientShop =
   '</a>' +
 '</li>'
 
-let clientCombined = clientPictures+clientShop;
+
+let clientScanQR =
+'<li id="clientScanQR">' +
+  '<a href="#" class="item-content item-link">' +
+    '<div class="item-inner">' +
+      '<div class="item-title">Skanuj kod QR</div>' +
+    '</div>' +
+  '</a>' +
+'</li>'
+
+let clientCombined = clientPictures+clientShop+clientScanQR;
 //CLIENT
 
 
 //HOTEL
-let hotelArchivePictures = 
+let hotelArchivePictures =
 '<li id="hotelArchivePictures">' +
   '<a href="/hotel/archive/pictures" class="item-content item-link">' +
     '<div class="item-inner">' +
@@ -138,7 +148,7 @@ let hotelArchivePictures =
   '</a>' +
 '</li>'
 
-let hotelPictures = 
+let hotelPictures =
 '<li id="hotelPictures">' +
   '<a href="/hotel/pictures" class="item-content item-link">' +
     '<div class="item-inner">' +
@@ -148,7 +158,7 @@ let hotelPictures =
 '</li>'
 
 
-let hotelShop = 
+let hotelShop =
 '<li id="hotelShop">' +
   '<a href="/hotel/shop/pictures" class="item-content item-link">' +
     '<div class="item-inner">' +
@@ -157,7 +167,7 @@ let hotelShop =
   '</a>' +
 '</li>'
 
-let hotelSale = 
+let hotelSale =
 '<li id="hotelSales">' +
   '<a href="/hotel/sales/pictures" class="item-content item-link">' +
     '<div class="item-inner">' +
@@ -170,19 +180,59 @@ let hotelCombined = hotelSale+hotelPictures+hotelShop+hotelArchivePictures;
 //HOTEL
 
 
-$(document).on('page:beforein', '.page[data-name="accountSettings"]', function (e) {
+$(document).on('page:init', '.page[data-name="accountSettings"]', function (e) {
 
   if(localStorage.role == "HOTEL") {
 
     if(!$('#hotelPictures').length && !$('#hotelShop').length && !$('#hotelSales').length) {
       $(hotelCombined).insertAfter($('#settingsList li:first-child'))
     }
-    
+
   } else if(localStorage.role == "KLIENT") {
-    
+
     if(!$('#clientPictures').length && !$('#clientShop').length) {
       $(clientCombined).insertAfter($('#settingsList li:first-child'))
     }
+
+	$('#clientScanQR').on('click', () => {
+
+		var qr_code = "";
+
+		cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                if (!result.cancelled) {
+                    if (result.format === "QR_CODE") {
+                        qr_code = result.text;
+
+						if(qr_code.startsWith('/client/shop/pictures/')) {
+
+							app.views.main.router.navigate(qr_code);
+							app.views.main.router.refreshPage();
+
+							console.log(qr_code)
+						} else {
+							app.dialog.alert("Niperawidłowa zawartość kodu QR")
+							console.log("ERR1")
+						}
+
+                    } else {
+						app.dialog.alert("Nieprawidłowy format kodu")
+						console.log("ERR2")
+					}
+                }
+
+            },
+            function (error) {
+				app.dialog.alert("Scanning Failed" + error)
+				console.log("ERR3")
+			},
+			{
+				prompt: "Proszę umieścić kod QR w strefie skanowania",
+				formats: "QR_CODE",
+				orientation: "portrait"
+			}
+        )
+	});
 
   } else if(localStorage.role == "ARTYSTA") {
 
@@ -201,7 +251,7 @@ $(document).on('page:beforein', '.page[data-name="accountSettings"]', function (
 });
 
 $(document).on('page:init', '.page[data-name="userInfo"]', function (e) {
-  
+
   $('#submitRegisterFull').on('click', async function () {
       var firstName = $('#userInfoForm [name="firstName"]').val();
       var lastName = $('#userInfoForm [name="lastName"]').val();
@@ -242,14 +292,14 @@ $(document).on('page:init', '.page[data-name="userInfo"]', function (e) {
 
       } catch (error) {
         console.log('Request failed', error) ;
-      }   
+      }
 
   });
 
 });
 
 $(document).on('page:init', '.page[data-name="accountInfo"]', async function (e) {
-  
+
   if(localStorage.token) {
       const respMe = await fetch(hostPath+'/user/me', {
       method: 'GET',
@@ -257,7 +307,7 @@ $(document).on('page:init', '.page[data-name="accountInfo"]', async function (e)
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.token
       }});
-    
+
       const respMe2 = await respMe.json();
       console.log(respMe2);
 
@@ -278,7 +328,7 @@ $(document).on('page:init', '.page[data-name="accountInfo"]', async function (e)
 });
 
 $(document).on('page:init', '.page[data-name="login"]', function (e) {
-  
+
   var userLogin = {};
 
   $('#submitLogin').on('click', async function () {
@@ -300,7 +350,7 @@ $(document).on('page:init', '.page[data-name="login"]', function (e) {
       const body = await response.json();
 
       if(response.status == 200) {
-          
+
           localStorage.token = body.token;
 
           const respMe = await fetch(hostPath+'/user/me', {
@@ -322,7 +372,7 @@ $(document).on('page:init', '.page[data-name="login"]', function (e) {
           } else if (b2.Role.name == "ARTYSTA") {
               localStorage.rolePath = rolePaths[2];
           }
-          
+
           console.log(b2)
           app.views.main.router.navigate('/accountSettings');
       } else {
@@ -332,14 +382,14 @@ $(document).on('page:init', '.page[data-name="login"]', function (e) {
 
       } catch (error) {
           console.log('Request failed', error) ;
-      }   
+      }
 
   });
 
 });
 
 $(document).on('page:init', '.page[data-name="editInfo"]', async function (e) {
-  
+
   if(localStorage.token) {
       const respMe = await fetch(hostPath+'/user/me', {
       method: 'GET',
@@ -360,7 +410,7 @@ $(document).on('page:init', '.page[data-name="editInfo"]', async function (e) {
       $('#userEditForm [name="birthDate"]').val(respMe2.UserInfo.birthDate.split("T")[0]);
       $('#userEditForm [name="organisation"]').val(respMe2.UserInfo.organisation);
       $('#userEditForm [name="description"]').val(respMe2.UserInfo.description);
-      
+
   }
 
   $('#submitEdit').on('click', async function () {
@@ -401,14 +451,14 @@ $(document).on('page:init', '.page[data-name="editInfo"]', async function (e) {
 });
 
 $(document).on('page:init', '.page[data-name="changePassword"]', function (e) {
-  
+
   let passCreds = {};
 
   $('#submitChangePassword').on('click', async function () {
       var password = $('#changePasswordForm [name="oldpass"]').val();
       var newpassword = $('#changePasswordForm [name="newpass"]').val();
       var renewpassword = $('#changePasswordForm [name="renewpass"]').val();
-      
+
       passCreds.password = password;
       passCreds.newpassword = newpassword;
       passCreds.renewpassword = renewpassword;
@@ -464,7 +514,7 @@ $(document).on('page:init', '.page[data-name="transactionHistory"]', async funct
         '<li>' +
           '<a href="/transactionHistory/' + respMe2[i].id + '/details" class="item-link item-content">' +
             '<div class="item-inner">' +
-            '<div class="item-title">' + 
+            '<div class="item-title">' +
               respMe2[i].pictureName + '<div class="item-footer">' + sign + respMe2[i].price + 'zł</div>' +
             '</div>' +
             '<div class="item-after">' + respMe2[i].type + ', ' + creation[0] + ', ' + creation[1].split(".")[0] + '</div>' +
@@ -477,7 +527,7 @@ $(document).on('page:init', '.page[data-name="transactionHistory"]', async funct
 });
 
 $(document).on('page:init', '.page[data-name="transactionHistoryDetails"]', async function (e, page) {
-  
+
   if(localStorage.rolePath) {
 
     const respMe = await fetch(localStorage.rolePath + '/transactions/' + page.route.params.id, {
@@ -751,8 +801,8 @@ $(document).on('page:init', '.page[data-name="artistShowSale"]', async function 
   $('#height').text(respMe2.height + 'cm');
   $('#image').attr('src', respMe2.imageLocation);
   $('#percentage').text(respMe2.percentage + '%');
-    
-  
+
+
   //ARTIST show my sales - button to remove from selling picture
   $('#submitRemoveSalePicture').on('click', async function() {
 
@@ -827,7 +877,7 @@ $(document).on('page:init', '.page[data-name="hotelBuyPicture"]', async function
 
   if(!respMe2.onSale || !respMe2.available) {
       $('#submitBuyPicture').addClass('disabled');
-      app.dialog.alert("Ten obraz został już kupiony lub został wycofany ze sprzedaży");
+	  app.dialog.alert("Ten obraz został już kupiony lub został wycofany ze sprzedaży");
   }
 
   $('#submitBuyPicture').on('click', async function() {
@@ -842,7 +892,7 @@ $(document).on('page:init', '.page[data-name="hotelBuyPicture"]', async function
     const respMe4 = await respMe3.json();
 
     if(respMe3.status == 200) {
-      app.dialog.alert(respMe4.msg);  
+      app.dialog.alert(respMe4.msg);
       app.views.main.router.back({url: '/shop/pictures', force: true});
       app.views.main.router.refreshPage()
     } else {
@@ -968,18 +1018,17 @@ $(document).on('page:init', '.page[data-name="hotelShowArchivePicture"]', async 
   $('#width').text(respMe2.width + 'cm');
   $('#height').text(respMe2.height + 'cm');
   $('#image').attr('src', respMe2.imageLocation);
-  $('#qrcode').attr('src', respMe2.qrCodeLocation);
   $('#percentage').text(respMe2.percentage + '%');
 
   if(respMe2.additionalPrice) {
-    $('#additionalPrice').val(respMe2.additionalPrice);
+    $('#additionalPrice').text(respMe2.additionalPrice+'zł');
   }
 
   let me = $('#moneyForHotel')
   let artist = $('#moneyForArtist')
 
-  if($('#additionalPrice').val()) {
-    moneyUpdater(respMe2, me, artist);
+  if(respMe2.additionalPrice) {
+    moneyUpdaterText(respMe2, me, artist);
   }
 
 });
@@ -1055,6 +1104,19 @@ function moneyUpdater(obj, me, artist) {
   artist.text("Po sprzedaży artysta otrzyma: " + (moneyForArtist) + "zł")
 }
 
+function moneyUpdaterText(obj, me, artist) {
+  let additionalPrice = obj.additionalPrice
+
+  console.log(round(additionalPrice*(obj.percentage/100)))
+  console.log(additionalPrice*(obj.percentage/100))
+
+  const moneyForArtist = round(additionalPrice*(obj.percentage/100));
+  const moneyForHotel = obj.price+(additionalPrice-moneyForArtist);
+
+  me.text("Po sprzedaży otrzymasz: " + (moneyForHotel) + "zł");
+  artist.text("Po sprzedaży artysta otrzyma: " + (moneyForArtist) + "zł")
+}
+
 function moneyUpdaterBackendBased(obj, me, artist) {
 
   console.log(round(obj.additionalPrice*(obj.percentage/100)))
@@ -1066,8 +1128,6 @@ function moneyUpdaterBackendBased(obj, me, artist) {
   me.text("Po sprzedaży otrzymasz: " + (moneyForHotel) + "zł");
   artist.text("Po sprzedaży artysta otrzyma: " + (moneyForArtist) + "zł")
 }
-
-
 
 $(document).on('page:init', '.page[data-name="hotelShowPicture"]', async function (e, page) {
 
@@ -1147,7 +1207,7 @@ $(document).on('page:init', '.page[data-name="hotelShowPicture"]', async functio
   if($('#additionalPrice').val()) {
     moneyUpdater(respMe2, me, artist);
   }
-  
+
   $('#additionalPrice').on('change', async function() {
     moneyUpdater(respMe2, me, artist);
   });
@@ -1260,9 +1320,9 @@ $(document).on('page:init', '.page[data-name="clientBuyPicturesList"]', async fu
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.token
         }});
-  
+
     const respMe2 = await respMe.json();
-  
+
     for(let i = 0; i < respMe2.length; i++) {
         console.log(respMe2[i]);
         let html =
@@ -1273,46 +1333,48 @@ $(document).on('page:init', '.page[data-name="clientBuyPicturesList"]', async fu
         $('#clientBuyPicturesList').append(html);
     }
   });
-  
-  
-  $(document).on('page:init', '.page[data-name="clientBuyPicture"]', async function (e, page) {
-  
+
+//WTF?
+ $(document).on('page:afterin', '.page[data-name="clientBuyPicture"]', async function (e, page) {
+
     const respMe = await fetch(localStorage.rolePath + '/shop/pictures/' + page.route.params.pid, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.token
         }});
-  
+
     const respMe2 = await respMe.json();
-  
+
     console.log(respMe2);
-  
+
     let available;
     if(respMe2.available) {
       available = "Dostępny do sprzedaży"
     } else {
       available = "Obraz został sprzedany"
     }
-  
+
     if(!respMe2.onSale || !respMe2.available) {
         $('#submitBuyPicture').addClass('disabled');
+		//EDIT
+		app.views.main.router.navigate('/accountSettings');
         app.dialog.alert("Ten obraz został już kupiony lub został wycofany ze sprzedaży");
     }
-  
+
     $('#submitBuyPicture').on('click', async function() {
-  
+
       const respMe3 = await fetch(localStorage.rolePath + '/shop/pictures/' + page.route.params.pid + '/buy', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.token
         }});
-  
+
       const respMe4 = await respMe3.json();
-  
+
       if(respMe3.status == 200) {
-        app.dialog.alert(respMe4.msg);  
+        app.dialog.alert(respMe4.msg);
         app.views.main.router.back({url: '/shop/pictures', force: true});
         app.views.main.router.refreshPage()
       } else {
@@ -1320,7 +1382,7 @@ $(document).on('page:init', '.page[data-name="clientBuyPicturesList"]', async fu
         app.dialog.alert(respMe4.msg);
       }
     });
-  
+
     $('#available').text(available);
     $('#name').text(respMe2.name);
     $('#description').text(respMe2.description);
@@ -1333,6 +1395,21 @@ $(document).on('page:init', '.page[data-name="clientBuyPicturesList"]', async fu
 
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   $(document).on('page:init', '.page[data-name="clientMyPictures"]', async function (e, page) {
 
     const respMe = await fetch(localStorage.rolePath + '/pictures', {
@@ -1341,9 +1418,9 @@ $(document).on('page:init', '.page[data-name="clientBuyPicturesList"]', async fu
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.token
         }});
-  
+
     const respMe2 = await respMe.json();
-  
+
     for(let i = 0; i < respMe2.length; i++) {
         console.log(respMe2[i]);
         let html =
@@ -1354,20 +1431,20 @@ $(document).on('page:init', '.page[data-name="clientBuyPicturesList"]', async fu
         $('#clientMyPictures').append(html);
     }
   });
-  
+
   $(document).on('page:init', '.page[data-name="clientShowPicture"]', async function (e, page) {
-  
+
     const respMe = await fetch(localStorage.rolePath + '/pictures/' + page.route.params.pid, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.token
         }});
-  
+
     const respMe2 = await respMe.json();
-  
+
     console.log(respMe2);
-  
+
     $('#name').text(respMe2.name);
     $('#description').text(respMe2.description);
     $('#year').text(respMe2.year + ' r.');
@@ -1391,15 +1468,15 @@ $(document).on('page:init', '.page[data-name="home"]', function (e) {
           '<div class="item-inner">' +
           '<div class="item-title">Zaloguj</div>' +
           '</div>' +
-        '</a>' + 
+        '</a>' +
       '</li>' +
 
       '<li>' +
         '<a href="/register/" class="item-content item-link">' +
           '<div class="item-inner">' +
           '<div class="item-title">Zarejestruj</div>' +
-          '</div>' + 
-        '</a>' + 
+          '</div>' +
+        '</a>' +
       '</li>';
 
       $('#main-list').html(html);
@@ -1416,15 +1493,15 @@ if(localStorage.token) {
       '<div class="item-inner">' +
       '<div class="item-title">Zaloguj</div>' +
       '</div>' +
-    '</a>' + 
+    '</a>' +
   '</li>' +
 
   '<li>' +
     '<a href="/register/" class="item-content item-link">' +
       '<div class="item-inner">' +
       '<div class="item-title">Zarejestruj</div>' +
-      '</div>' + 
-    '</a>' + 
+      '</div>' +
+    '</a>' +
   '</li>';
 
   $('#main-list').html(html);
