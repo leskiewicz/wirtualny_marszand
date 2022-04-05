@@ -3,6 +3,12 @@
     height: 100vh;
 }
 
-img {
+#image,#pictureImage {
     width: 100%;
+}
+
+#qrcode{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
 }

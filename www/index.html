@@ -17,81 +17,48 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <title>Marszand</title>
-  
-  
-  
-  
+
+
+
+
   <link rel="stylesheet" href="framework7/framework7-bundle.min.css">
   <link rel="stylesheet" href="css/icons.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
   <div id="app">
-
-    <!-- Right panel with reveal effect-->
-    <div class="panel panel-right panel-reveal theme-dark">
-      <div class="view">
-        <div class="page">
-          <div class="navbar">
-            <div class="navbar-bg"></div>
-            <div class="navbar-inner">
-              <div class="title">Right Panel</div>
-            </div>
-          </div>
-          <div class="page-content">
-            <div class="block">Right panel content goes here</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
     <!-- Your main view, should have "view-main" class -->
     <div class="view view-main view-init safe-areas">
       <div class="page" data-name="home">
         <!-- Top Navbar -->
-        <div class="navbar navbar-large">
+        <div class="navbar">
           <div class="navbar-bg"></div>
           <div class="navbar-inner">
             <div class="title sliding">Marszand</div>
-            <div class="right">
-              <a href="#" class="link icon-only panel-open" data-panel="right">
-                <i class="icon f7-icons if-not-md">menu</i>
-                <i class="icon material-icons if-md">menu</i>
-              </a>
-            </div>
             <div class="title-large">
               <div class="title-large-text">Marszand</div>
             </div>
           </div>
         </div>
-        <!-- Toolbar-->
-        <div class="toolbar toolbar-bottom">
-          <div class="toolbar-inner">
-            <a href="#" class="link">Left Link</a>
-            <a href="#" class="link">Right Link</a>
-          </div>
-        </div>
-        <!-- Scrollable page content-->
+         Scrollable page content
         <div class="page-content">
           <div class="block-title">Navigation</div>
           <div class="list">
             <ul id="main-list">
-
             </ul>
           </div>
-          
         </div>
       </div>
     </div>
 
-    
+
   </div>
   <!-- CORDOVA_PLACEHOLDER_DONT_REMOVE -->
   <!-- Framework7 library -->
   <script src="framework7/framework7-bundle.min.js"></script>
   <!-- Cordova APIs -->
   <script src="js/cordova-app.js"></script>
-  
+
   <!-- App routes -->
   <script src="js/routes.js"></script>
   <!-- App store -->
